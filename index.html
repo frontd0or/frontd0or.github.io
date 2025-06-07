@@ -21,6 +21,8 @@
       border-radius: 10px;
       box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
       min-height: 80vh;
+      position: relative;
+      overflow: hidden;
     }
     #terminal-output {
       max-height: 60vh;
@@ -40,10 +42,29 @@
     code {
       color: #ff003c;
     }
+    .glitch {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      mix-blend-mode: difference;
+      pointer-events: none;
+      animation: glitchAnim 1s infinite;
+      opacity: 0;
+    }
+    @keyframes glitchAnim {
+      0%, 100% { opacity: 0; }
+      10% { opacity: 0.1; transform: translateX(-5px); }
+      20% { opacity: 0.2; transform: translateX(5px); }
+      30% { opacity: 0; transform: none; }
+    }
   </style>
 </head>
 <body>
   <div class="terminal" id="terminal" onclick="focusInput()">
+    <div class="glitch" id="glitch-layer"></div>
     <div id="terminal-output">
 <pre style="color:#ff003c;">
 ███████╗██████╗ ██╗   ██╗ ██████╗ ██████╗ ███████╗
@@ -61,26 +82,39 @@
     </div>
   </div>
 
+  <audio id="glitch-sound" src="media/glitch.mp3" preload="auto"></audio>
+  <audio id="ambient-music" src="media/ambient.mp3" loop preload="auto"></audio>
+
   <script>
     const terminalInput = document.getElementById('terminal-input');
     const terminalOutput = document.getElementById('terminal-output');
     const terminalPath = document.getElementById('terminal-path');
+    const glitchLayer = document.getElementById('glitch-layer');
+    const glitchSound = document.getElementById('glitch-sound');
+    const ambientMusic = document.getElementById('ambient-music');
 
     const fileSystem = {
       '/': {
         'readme.txt': `Welcome, agent.\nYour access key is hidden inside the vault.\nBut the vault is locked...`,
-        'hint.jpg': '[Corrupted Image Data]',
         'vault': {
           'vault.key': 'ACCESS_KEY: 7h15-15-f4k3-k3y',
-          'locked.mp4': '<video width=\"320\" controls><source src=\"media/locked.mp4\" type=\"video/mp4\">Video unsupported.</video>'
-
-        }
+          'locked.mp4': '<video width="320" controls><source src="media/locked.mp4" type="video/mp4">Video unsupported.</video>',
+          'message.enc': 'U2VjcmV0IENvZGU6IFRoZSBwYXNzd29yZCBpcyAiRGVjb2RlVGhpcyIg',
+        },
+        'access.log': '',
+      },
+      '/deep_vault': {
+        'clue.txt': 'You found the deep vault. But it only opens when you believe.',
+        'confession.ogg': '[DATA MISSING]'
       }
     };
 
     let currentPath = '/';
     let history = [];
     let historyIndex = 0;
+    let hasAccess = false;
+    let deepUnlocked = false;
+    let hackTimer;
 
     function getDir(path) {
       const parts = path.split('/').filter(Boolean);
@@ -91,13 +125,23 @@
       return dir;
     }
 
+    function updatePrompt() {
+      terminalPath.textContent = `user@darkhost:${currentPath}$`;
+    }
+
+    function logAccess(input) {
+      const log = getDir('/');
+      log['access.log'] += `[${new Date().toISOString()}] ${input}\n`;
+    }
+
     function resolveCommand(input) {
       const args = input.split(' ');
       const cmd = args[0];
+      logAccess(input);
 
       switch (cmd) {
         case 'help':
-          return `Commands: help, ls, cd, cat, clear, exit, access <key>`;
+          return `Commands: help, ls, cd, cat, clear, exit, access <key>, unlock --deep, decode <file>, hack, mute, unmute`;
 
         case 'ls': {
           const dir = getDir(currentPath);
@@ -134,10 +178,39 @@
         case 'access': {
           const key = args[1];
           if (key === '7h15-15-f4k3-k3y') {
+            hasAccess = true;
+            triggerGlitch();
+            glitchSound.play();
             return '> Access granted. Welcome back, operative.';
           } else {
             return 'Access denied.';
           }
+        }
+
+        case 'unlock': {
+          if (args[1] === '--deep' && hasAccess) {
+            deepUnlocked = true;
+            fileSystem['/']['deep_vault'] = fileSystem['/deep_vault'];
+            return 'Deep vault unlocked.';
+          } else {
+            return 'Permission denied or key not authenticated.';
+          }
+        }
+
+        case 'decode': {
+          const file = args[1];
+          const dir = getDir(currentPath);
+          if (!dir[file]) return `No such file: ${file}`;
+          try {
+            return atob(dir[file]);
+          } catch {
+            return 'Decoding failed.';
+          }
+        }
+
+        case 'hack': {
+          startHackTimer();
+          return 'HACK MODE ENABLED. Enter password before time runs out...';
         }
 
         case 'clear':
@@ -146,13 +219,21 @@
         case 'exit':
           return 'Session terminated.';
 
+        case 'mute':
+          ambientMusic.pause();
+          return 'Audio muted.';
+
+        case 'unmute':
+          ambientMusic.play();
+          return 'Audio unmuted.';
+
         default:
+          if (input === 'DecodeThis') {
+            clearTimeout(hackTimer);
+            return '>> Hack successful. System override complete.';
+          }
           return `'${cmd}' is not recognized. Try 'help'.`;
       }
-    }
-
-    function updatePrompt() {
-      terminalPath.textContent = `user@darkhost:${currentPath}$`;
     }
 
     terminalInput.addEventListener('keydown', async function (e) {
@@ -210,6 +291,20 @@
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
+    function triggerGlitch() {
+      glitchLayer.style.opacity = '1';
+      setTimeout(() => {
+        glitchLayer.style.opacity = '0';
+      }, 500);
+    }
+
+    function startHackTimer() {
+      clearTimeout(hackTimer);
+      hackTimer = setTimeout(() => {
+        addOutput('>>> Time expired. System lockdown engaged.');
+      }, 60000);
+    }
+
     function focusInput() {
       terminalInput.focus();
     }
@@ -217,6 +312,8 @@
     window.onload = () => {
       focusInput();
       updatePrompt();
+      ambientMusic.volume = 0.3;
+      ambientMusic.play().catch(() => {});
     };
   </script>
 </body>
