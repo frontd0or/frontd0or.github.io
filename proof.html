@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Proof - frontd0or</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: black;
+      color: #33ff33;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      padding-top: 20px;
+      color: #33ff33;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .gallery img {
+      border: 2px solid #33ff33;
+      max-width: 300px;
+      height: auto;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .nav {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+
+    .nav a {
+      color: #33ff33;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2em;
+      border: 2px solid #33ff33;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background-color: black;
+      transition: background 0.3s;
+    }
+
+    .nav a:hover {
+      background-color: #004400;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="index.html">Back</a>
+  </div>
+
+  <h1>Proof of Cockslappage</h1>
+
+  <div class="gallery">
+    <img src="images/proof1.png" alt="Proof 1">
+    <img src="images/proof2.png" alt="Proof 2">
+    <img src="images/proof3.png" alt="Proof 3">
+    <!-- Add more as needed -->
+  </div>
+</body>
+</html>
