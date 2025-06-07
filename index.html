@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>frontd0or is locked...</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0a0a0a;
+      color: #00ffcc;
+      font-family: 'Share Tech Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .glitch {
+      font-size: 2.5rem;
+      position: relative;
+      color: #00ffcc;
+      animation: flicker 1.5s infinite;
+      text-shadow: 0 0 2px #00ffcc, 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      color: #ff003c;
+      z-index: -1;
+    }
+
+    .glitch::before {
+      animation: glitchTop 1s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      animation: glitchBottom 1s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitchTop {
+      0% { clip-path: inset(0 0 80% 0); transform: translate(2px, -2px); }
+      100% { clip-path: inset(0 0 20% 0); transform: translate(-2px, 2px); }
+    }
+
+    @keyframes glitchBottom {
+      0% { clip-path: inset(80% 0 0 0); transform: translate(-1px, 1px); }
+      100% { clip-path: inset(20% 0 0 0); transform: translate(1px, -1px); }
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+      }
+      20%, 24%, 55% {
+        opacity: 0.4;
+      }
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="glitch" data-text="frontd0or is locked...">frontd0or is locked...</div>
+  <div class="footer">🔒 Unauthorized access detected</div>
+</body>
+</html>
