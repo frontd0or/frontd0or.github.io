@@ -69,3 +69,20 @@ body.dark {
   left: 20px;
   transition: all 0.1s ease;
 }
+
+.download-link {
+  font-size: 1.3rem;
+  color: #ff4444;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 1px solid #ff4444;
+  margin-top: 20px;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.download-link:hover {
+  background: #ff4444;
+  color: black;
+  box-shadow: 0 0 20px red;
+}
