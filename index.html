@@ -12,18 +12,44 @@
       background-color: #0a0a0a;
       color: #00ffcc;
       font-family: 'Share Tech Mono', monospace;
+      overflow-x: hidden;
+    }
+
+    nav {
+      padding: 1rem;
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      gap: 2rem;
+      background: #111;
+      box-shadow: 0 0 10px #00ffcc33;
+    }
+
+    nav a {
+      color: #00ffcc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff003c;
+    }
+
+    .container {
+      display: none;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .active {
+      display: block;
     }
 
     .glitch {
       font-size: 2.5rem;
+      text-align: center;
+      margin-top: 2rem;
       position: relative;
-      color: #00ffcc;
       animation: flicker 1.5s infinite;
       text-shadow: 0 0 2px #00ffcc, 0 0 5px #00ffcc, 0 0 10px #00ffcc;
     }
@@ -59,24 +85,79 @@
     }
 
     @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 24%, 55% {
-        opacity: 0.4;
-      }
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.4; }
+    }
+
+    .typewriter {
+      font-size: 1.2rem;
+      white-space: pre;
+      overflow: hidden;
+      border-right: 2px solid #00ffcc;
+      width: 0;
+      animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    video {
+      width: 100%;
+      margin-top: 2rem;
+      border: 1px solid #00ffcc55;
+      border-radius: 10px;
     }
 
     .footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.9rem;
-      color: #555;
+      text-align: center;
+      color: #444;
+      font-size: 0.8rem;
+      margin-top: 3rem;
+      padding-bottom: 1rem;
     }
   </style>
 </head>
 <body>
-  <div class="glitch" data-text="frontd0or is locked...">frontd0or is locked...</div>
-  <div class="footer">🔒 Unauthorized access detected</div>
+
+  <!-- Static noise (optional) -->
+  <audio autoplay loop hidden>
+    <source src="https://freesound.org/data/previews/341/341695_3248244-lq.mp3" type="audio/mp3">
+  </audio>
+
+  <nav>
+    <a href="#" onclick="showTab('home')">Home</a>
+    <a href="#" onclick="showTab('video')">Video ;)</a>
+  </nav>
+
+  <div id="home" class="container active">
+    <div class="glitch" data-text="frontd0or is locked...">frontd0or is locked...</div>
+    <div class="typewriter">> Attempting backd00r access... [DENIED]</div>
+  </div>
+
+  <div id="video" class="container">
+    <h2>Video ;)</h2>
+    <p>Here's something... unsettling.</p>
+    <video controls>
+      <source src="your-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="footer">🕷️ system breach logged @ 03:17 UTC</div>
+
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
 </body>
 </html>
