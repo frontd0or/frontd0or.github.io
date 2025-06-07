@@ -8,7 +8,6 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
       background-color: #0a0a0a;
       color: #00ffcc;
       font-family: 'Share Tech Mono', monospace;
@@ -16,10 +15,10 @@
     }
 
     nav {
-      padding: 1rem;
       display: flex;
       justify-content: center;
       gap: 2rem;
+      padding: 1rem;
       background: #111;
       box-shadow: 0 0 10px #00ffcc33;
     }
@@ -27,7 +26,7 @@
     nav a {
       color: #00ffcc;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: 0.3s;
     }
 
     nav a:hover {
@@ -51,7 +50,7 @@
       margin-top: 2rem;
       position: relative;
       animation: flicker 1.5s infinite;
-      text-shadow: 0 0 2px #00ffcc, 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+      text-shadow: 0 0 2px #00ffcc, 0 0 5px #00ffcc;
     }
 
     .glitch::before,
@@ -61,17 +60,16 @@
       left: 0;
       top: 0;
       width: 100%;
-      overflow: hidden;
       color: #ff003c;
       z-index: -1;
     }
 
     .glitch::before {
-      animation: glitchTop 1s infinite linear alternate-reverse;
+      animation: glitchTop 1s infinite alternate-reverse;
     }
 
     .glitch::after {
-      animation: glitchBottom 1s infinite linear alternate-reverse;
+      animation: glitchBottom 1s infinite alternate-reverse;
     }
 
     @keyframes glitchTop {
@@ -85,8 +83,8 @@
     }
 
     @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-      20%, 24%, 55% { opacity: 0.4; }
+      0%, 20%, 22%, 24%, 70%, 100% { opacity: 1; }
+      21%, 23%, 71% { opacity: 0.4; }
     }
 
     .typewriter {
@@ -109,9 +107,19 @@
       50% { border-color: transparent }
     }
 
+    .terminal {
+      background: #111;
+      border: 1px solid #00ffcc44;
+      padding: 1rem;
+      margin-top: 2rem;
+      border-radius: 5px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
     video {
       width: 100%;
-      margin-top: 2rem;
+      margin-top: 1rem;
       border: 1px solid #00ffcc55;
       border-radius: 10px;
     }
@@ -123,11 +131,21 @@
       margin-top: 3rem;
       padding-bottom: 1rem;
     }
+
+    .links a {
+      color: #00ffcc;
+      text-decoration: none;
+      margin-right: 1rem;
+    }
+
+    .links a:hover {
+      color: #ff003c;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Static noise (optional) -->
+  <!-- Static noise -->
   <audio autoplay loop hidden>
     <source src="https://freesound.org/data/previews/341/341695_3248244-lq.mp3" type="audio/mp3">
   </audio>
@@ -135,20 +153,42 @@
   <nav>
     <a href="#" onclick="showTab('home')">Home</a>
     <a href="#" onclick="showTab('video')">Video ;)</a>
+    <a href="#" onclick="showTab('contact')">Contact</a>
   </nav>
 
   <div id="home" class="container active">
     <div class="glitch" data-text="frontd0or is locked...">frontd0or is locked...</div>
     <div class="typewriter">> Attempting backd00r access... [DENIED]</div>
+    <div class="terminal">
+      user@darkhost:~$ nmap -sV 192.168.1.13<br>
+      Starting Nmap 7.91 ...<br>
+      PORT     STATE SERVICE VERSION<br>
+      22/tcp   open  ssh     OpenSSH 8.2<br>
+      80/tcp   open  http    Apache 2.4.41<br>
+      443/tcp  open  https   nginx 1.18.0<br>
+      <br>
+      Exploit attempt: FAILED 🔐<br>
+      Logs transmitted to sysadmin@vault.local
+    </div>
   </div>
 
   <div id="video" class="container">
     <h2>Video ;)</h2>
     <p>Here's something... unsettling.</p>
     <video controls>
-      <source src="your-video.mp4" type="video/mp4">
+      <source src="locked-access.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
+  </div>
+
+  <div id="contact" class="container">
+    <h2>Contact</h2>
+    <p class="links">
+      <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+      <a href="mailto:your@email.com">Email</a>
+    </p>
+    <p>Always watching...</p>
   </div>
 
   <div class="footer">🕷️ system breach logged @ 03:17 UTC</div>
