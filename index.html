@@ -4,41 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>@frontdoorr</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to bottom, #0b0b0b, #1c1c1c);
-      color: #00ffcc;
+      background: url('https://i.imgur.com/e3nd1Qg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #9ddcff;
       text-align: center;
     }
 
     header {
-      padding: 60px 20px;
-      font-size: 3em;
-      color: #00ffcc;
+      font-size: 4em;
+      margin-top: 20vh;
+      color: #9ddcff;
+      text-shadow: 0 0 20px #005577, 0 0 40px #005577;
       cursor: pointer;
-      text-shadow: 0 0 20px #00ffcc;
-      transition: 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     header:hover {
       color: #ffffff;
-      text-shadow: 0 0 30px #ffffff;
+      text-shadow: 0 0 30px #ffffff, 0 0 50px #9ddcff;
     }
 
     nav {
-      background-color: #111;
-      padding: 15px;
-      box-shadow: 0 2px 10px rgba(0, 255, 204, 0.2);
+      margin-top: 40px;
+      background-color: rgba(0, 10, 20, 0.6);
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 10px;
+      border: 1px solid #00aaff;
+      box-shadow: 0 0 15px #003344;
     }
 
     nav a {
-      color: #00ffcc;
+      color: #9ddcff;
       text-decoration: none;
-      font-size: 1.2em;
-      margin: 0 15px;
-      transition: color 0.3s;
+      font-size: 1.5em;
+      margin: 0 20px;
+      transition: 0.3s;
     }
 
     nav a:hover {
@@ -46,7 +53,7 @@
     }
 
     .content {
-      margin-top: 40px;
+      margin-top: 60px;
     }
 
     iframe {
@@ -55,23 +62,45 @@
       height: 710px;
       border: none;
       border-radius: 12px;
-      box-shadow: 0 0 20px #00ffcc80;
+      box-shadow: 0 0 30px #003355;
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+    /* Optional Halo-style fade */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    body {
+      animation: fadeIn 3s ease-in;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Welcome -->
   <header onclick="window.open('https://x.com/frontdoorr', '_blank')">
-    @frontdoorr
+    frontdoorr <-- CLICK ME
   </header>
 
+  <!-- Navigation -->
   <nav>
     <a href="#clips">clips <3</a>
   </nav>
 
+  <!-- YouTube Clip -->
   <div class="content" id="clips">
     <iframe src="https://www.youtube.com/embed/tKWN0d_mWG0?si=Ifxt_JfscdpyPGvB" allowfullscreen></iframe>
   </div>
+
+  <!-- Optional background music (muted autoplay loop) -->
+  <!-- Uncomment below if you want audio. Note: Many browsers block autoplay with sound -->
+  <!-- 
+  <audio autoplay loop muted>
+    <source src="your-halo3-music.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+  -->
+
 </body>
 </html>
