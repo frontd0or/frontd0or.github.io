@@ -108,13 +108,13 @@
     }
 
     .terminal {
-      background: #111;
-      border: 1px solid #00ffcc44;
-      padding: 1rem;
-      margin-top: 2rem;
-      border-radius: 5px;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      background: transparent;
+      border: none;
+      color: #00ffcc;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1rem;
+      width: 90%;
+      outline: none;
     }
 
     video {
@@ -159,18 +159,14 @@
   <div id="home" class="container active">
     <div class="glitch" data-text="frontd0or is locked...">frontd0or is locked...</div>
     <div class="typewriter">> Attempting backd00r access... [DENIED]</div>
-    <div class="terminal">
-      user@darkhost:~$ nmap -sV 192.168.1.13<br>
-      Starting Nmap 7.91 ...<br>
-      PORT     STATE SERVICE VERSION<br>
-      22/tcp   open  ssh     OpenSSH 8.2<br>
-      80/tcp   open  http    Apache 2.4.41<br>
-      443/tcp  open  https   nginx 1.18.0<br>
-      <br>
-      Exploit attempt: FAILED 🔐<br>
-      Logs transmitted to sysadmin@vault.local
-    </div>
+   <div class="terminal" id="terminal">
+  <div id="terminal-output"></div>
+  <div>
+    <span style="color:#00ffcc;">user@darkhost:~$</span>
+    <input id="terminal-input" autofocus />
   </div>
+</div>
+
 
   <div id="video" class="container">
     <h2>Video ;)</h2>
@@ -184,9 +180,9 @@
   <div id="contact" class="container">
     <h2>Contact</h2>
     <p class="links">
-      <a href="https://github.com/frontd0or" target="_blank">GitHub</a>
+      <a href="https://github.com/yourusername" target="_blank">GitHub</a>
       <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-      <a href="frontd0oropen@hotmail.com">Email</a>
+      <a href="mailto:your@email.com">Email</a>
     </p>
     <p>Always watching...</p>
   </div>
@@ -199,5 +195,44 @@
       document.getElementById(id).classList.add('active');
     }
   </script>
+  <script>
+  const terminalInput = document.getElementById('terminal-input');
+  const terminalOutput = document.getElementById('terminal-output');
+
+  const commands = {
+    help: `Available commands:<br> - help<br> - whoami<br> - nmap<br> - clear<br> - exit`,
+    whoami: `user: frontd0or_guest<br>privileges: low`,
+    nmap: `PORT     STATE SERVICE VERSION<br>22/tcp   open  ssh     OpenSSH 8.2<br>80/tcp   open  http    Apache 2.4.41<br>443/tcp  open  https   nginx 1.18.0<br><br>Exploits: none found.`,
+    exit: `Session terminated.`,
+    clear: 'clear'
+  };
+
+  terminalInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      const input = terminalInput.value.trim();
+      let response = '';
+
+      if (input === '') return;
+
+      if (commands[input]) {
+        if (input === 'clear') {
+          terminalOutput.innerHTML = '';
+          terminalInput.value = '';
+          return;
+        } else {
+          response = commands[input];
+        }
+      } else {
+        response = `'${input}' is not recognized. Try 'help'.`;
+      }
+
+      terminalOutput.innerHTML += `<div><span style="color:#00ffcc;">user@darkhost:~$</span> ${input}</div>`;
+      terminalOutput.innerHTML += `<div>${response}</div>`;
+      terminalInput.value = '';
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+  });
+</script>
+
 </body>
 </html>
