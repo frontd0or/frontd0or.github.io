@@ -1,106 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>@frontdoorr</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: url('https://i.imgur.com/aG5Xwwx.jpeg') no-repeat center center fixed;
-      background-size: cover;
-      color: #9ddcff;
-      text-align: center;
-    }
-
-    header {
-      font-size: 4em;
-      margin-top: 20vh;
-      color: #9ddcff;
-      text-shadow: 0 0 20px #005577, 0 0 40px #005577;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    header:hover {
-      color: #ffffff;
-      text-shadow: 0 0 30px #ffffff, 0 0 50px #9ddcff;
-    }
-
-    nav {
-      margin-top: 40px;
-      background-color: rgba(0, 10, 20, 0.6);
-      display: inline-block;
-      padding: 12px 30px;
-      border-radius: 10px;
-      border: 1px solid #00aaff;
-      box-shadow: 0 0 15px #003344;
-    }
-
-    nav a {
-      color: #9ddcff;
-      text-decoration: none;
-      font-size: 1.5em;
-      margin: 0 20px;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #ffffff;
-    }
-
-    .content {
-      margin-top: 60px;
-    }
-
-    iframe {
-      width: 100%;
-      max-width: 400px;
-      height: 710px;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 0 30px #003355;
-    }
-
-    /* Optional Halo-style fade */
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    body {
-      animation: fadeIn 3s ease-in;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Too Late</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-  <!-- Welcome -->
-  <header onclick="window.open('https://x.com/frontdoorr', '_blank')">
-    @frontdoorr
-  </header>
-
-  <!-- Navigation -->
-  <nav>
-    <a href="#clips">clips <3</a>
-  </nav>
-
-  <!-- YouTube Clip -->
-  <div class="content" id="clips">
-    <iframe src="https://www.youtube.com/embed/tKWN0d_mWG0?si=Ifxt_JfscdpyPGvB" allowfullscreen></iframe>
+<body class="dark">
+  <div class="overlay" id="overlay">
+    <p>Accessing webcam and microphone...</p>
   </div>
 
-  <!-- Optional background music (muted autoplay loop) -->
-  <!-- Uncomment below if you want audio. Note: Many browsers block autoplay with sound -->
-  <!-- 
-  <audio autoplay loop muted>
-    <source src="your-halo3-music.mp3" type="audio/mpeg">
-    Your browser does not support the audio tag.
-  </audio>
-  -->
+  <div class="centered">
+    <div id="eyes">
+      <div class="eye"><div class="pupil"></div></div>
+      <div class="eye"><div class="pupil"></div></div>
+    </div>
+    
+    <div id="typewriter" class="creepy-message"></div>
+    <div class="countdown" id="countdown">Time remaining: --:--</div>
+  </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
