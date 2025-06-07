@@ -2,24 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Too Late</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Hacked by frontd0or</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: black;
+      color: #33ff33;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .terminal {
+      padding: 20px;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .bubble-text {
+      font-size: 3rem;
+      color: #33ff33;
+      text-shadow: 0 0 5px #33ff33, 0 0 10px #00ff00;
+      font-weight: bold;
+      white-space: pre-wrap;
+    }
+
+    .cursor {
+      display: inline-block;
+      background-color: #33ff33;
+      width: 10px;
+      height: 1em;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .fade-in {
+      animation: fadeIn 2s ease-in;
+    }
+  </style>
 </head>
-<body class="dark">
-  <div class="overlay" id="overlay">
-    <p>Accessing webcam and microphone...</p>
+<body>
+  <div class="terminal">
+    <pre class="bubble-text" id="text"></pre><div class="cursor"></div>
   </div>
 
-  <div class="centered">
-    <div id="eyes">
-      <div class="eye"><div class="pupil"></div></div>
-      <div class="eye"><div class="pupil"></div></div>
-    </div>
-    
-    <div id="typewriter" class="creepy-message"></div>
-    <a href="reveal.html" class="countdown" id="countdown">Time remaining: --:--</a>
-  </div>
+  <script>
+    const message = `
+  ⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+  ⠀⢸⣿⠿⠛⠋⠁⠀⠀⠀⠀⠀⠀⠈⠙⠛⠿⣿
+  ⠀⢸⡇   YOU HAVE
+  ⠀⢸⡇     BEEN
+  ⠀⢸⡇    COCKSLAPPED
+  ⠀⢸⡇     BY
+  ⠀⢸⡇  — frontd0or ;)
+  ⠀⢸⣷⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶`;
 
-  <script src="script.js"></script>
+    let i = 0;
+    const speed = 20;
+    function typeWriter() {
+      if (i < message.length) {
+        document.getElementById("text").textContent += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    window.onload = typeWriter;
+  </script>
 </body>
 </html>
